@@ -26,5 +26,5 @@ Checkout Process: Streamlined order capture and data validation.
 
 Database Integration: Document-based storage for Products, Customers, and Orders.
 
-🐳 Deployment & Containerization
+ Deployment & Containerization
 This project is fully containerized to ensure environment consistency.
