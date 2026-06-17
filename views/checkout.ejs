@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Electronics Shop</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; padding: 20px; }
+        
+        .checkout-container { 
+            max-width: 500px; margin: 40px auto; background: #2e2f33; 
+            padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        }
+
+        
+        h2 { text-align: center; color: #e7e5e5; margin-bottom: 25px; }
+        h2:hover { color: #c1c0c0; }
+        
+        form div { margin-bottom: 15px; }
+        
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #e7e5e5; }
+        
+        input, textarea { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; 
+            border-radius: 6px; box-sizing: border-box; font-size: 16px;
+     
+        }
+        textarea:hover { resize: vertical; }
+        
+        button { 
+            width: 100%; padding: 14px; background-color: #2e2f33; 
+            color: #e7e5e5; border: none; border-radius: 6px; 
+            font-size: 18px; cursor: pointer; transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover { background-color: #0e0f0f; }
+    </style>
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>Checkout Details</h2>
+    <form id="checkout-form">
+        <div>
+            <label for="customerName">Full Name</label>
+            <input type="text" id="customerName" required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+        </div>
+        <div>
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" required>
+        </div>
+        <div>
+            <label for="shippingAddress">Shipping Address</label>
+            <textarea id="shippingAddress" rows="3" required></textarea>
+        </div>
+        <button type="submit">Place Order</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const checkoutForm = document.getElementById('checkout-form');
+
+    if (!checkoutForm) {
+        console.error("Critical Error: #checkout-form not found in the DOM.");
+        return;
+    }
+
+    checkoutForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // 1. Get cart
+        const activeCart = JSON.parse(localStorage.getItem('electronics_cart')) || [];
+        if (activeCart.length === 0) {
+            return alert("Your shopping cart is empty!");
+        }
+
+        // 2. Prepare data
+        const payload = {
+            customerName: document.getElementById('customerName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            shippingAddress: document.getElementById('shippingAddress').value,
+            items: activeCart,
+            totalAmount: activeCart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        };
+
+        // 3. Send to API
+        try {
+            const response = await fetch('/api/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                alert("🎉 Order created successfully!");
+                localStorage.removeItem('electronics_cart');
+                window.location.href = '/'; 
+            } else {
+                alert("Error: " + (data.message || "Failed to place order"));
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("A network error occurred. Please try again.");
+        }
+    });
+});
+</script>
+
+</body>
+</html>

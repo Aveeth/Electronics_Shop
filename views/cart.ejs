@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+<h1 class="text-3xl font-black text-slate-900 mb-8">Your Shopping Cart</h1>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-100" id="cart-items-container">
+        </div>
+    
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-fit flex flex-col justify-between">
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">Order Subtotal</h3>
+            <div class="flex justify-between items-center py-4">
+                <span class="text-slate-600 font-medium">Estimated Total:</span>
+                <span id="cart-total-price" class="text-2xl font-black text-slate-900">0 RWF</span>
+            </div>
+        </div>
+        <a href="/checkout" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-center rounded-xl block transition-colors shadow-sm">
+            Proceed to Checkout
+        </a>
+    </div>
+</div>
+<%- include('partials/footer') %>

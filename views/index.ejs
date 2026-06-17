@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<div class="mb-10 text-center md:text-left">
+    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Premium Electronics Inventory</h1>
+    <p class="text-slate-600 mt-2 text-lg">Browse high-performance devices with guaranteed local warranties.</p>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <% products.forEach(product => { %>
+        <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+                <img src="<%= product.imageUrl %>" alt="<%= product.name %>" class="w-full h-52 object-cover">
+                <div class="p-5">
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full uppercase tracking-wider"><%= product.category %></span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-3 mb-2"><%= product.name %></h3>
+                    <p class="text-slate-600 text-sm line-clamp-2 leading-relaxed"><%= product.description %></p>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-slate-50 bg-slate-50/50 flex items-center justify-between">
+                <span class="text-lg font-black text-slate-900"><%= product.price.toLocaleString() %> RWF</span>
+                <div class="flex gap-2">
+                    <a href="/product/<%= product._id %>" class="text-xs bg-white border border-slate-200 text-slate-700 px-3 py-2 rounded-lg font-semibold hover:bg-slate-100 transition-colors">Specs</a>
+                    
+                    <button 
+                        data-id="<%= product._id %>"
+                        data-name="<%= product.name %>"
+                        data-price="<%= product.price %>"
+                        data-image="<%= product.imageUrl %>"
+                        class="add-to-cart-btn text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-bold transition-colors shadow-sm">
+                        Add +
+                    </button>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<%- include('partials/footer') %>

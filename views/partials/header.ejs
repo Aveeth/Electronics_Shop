@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Electronics Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen font-sans">
+
+    <nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-xl font-extrabold tracking-wider uppercase text-blue-400 hover:text-blue-300 transition-colors">Electronics Shop</a>
+            
+            <div class="flex items-center gap-6 font-medium">
+                <a href="/" class="hover:text-blue-400 transition-colors">Home</a>
+                
+                <a href="/checkout" class="relative bg-slate-800 px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-2">
+                    <span>Cart</span>
+                    <span id="cart-badge" class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">

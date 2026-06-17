@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+<div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-10">
+    <a href="/" class="text-sm font-bold text-blue-600 hover:underline inline-flex items-center gap-1 mb-8">&larr; Return to Catalog</a>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <img src="<%= product.imageUrl %>" alt="<%= product.name %>" class="w-full h-auto object-cover rounded-xl shadow-sm">
+        
+        <div class="flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-wider"><%= product.category %></span>
+                <h1 class="text-3xl font-extrabold text-slate-900 mt-4"><%= product.name %></h1>
+                <p class="text-2xl font-black text-blue-600 mt-2"><%= product.price.toLocaleString() %> RWF</p>
+                
+                <div class="mt-6 border-t border-slate-100 pt-4">
+                    <h4 class="font-bold text-slate-900 text-sm mb-2">Product Overview</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed"><%= product.description %></p>
+                </div>
+
+                <div class="mt-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Technical Hardware Specs</h4>
+                    <table class="w-full text-xs text-slate-600">
+                        <tr class="border-b border-slate-200/60"><td class="py-2 font-semibold text-slate-500 w-1/3">Brand:</td><td class="py-2 font-medium text-slate-900"><%= product.specs.brand %></td></tr>
+                        <% if(product.specs.processor && product.specs.processor !== 'N/A') { %>
+                        <tr class="border-b border-slate-200/60"><td class="py-2 font-semibold text-slate-500">Processor:</td><td class="py-2 font-medium text-slate-900"><%= product.specs.processor %></td></tr>
+                        <% } %>
+                        <% if(product.specs.ram && product.specs.ram !== 'N/A') { %>
+                        <tr><td class="py-2 font-semibold text-slate-500">System RAM:</td><td class="py-2 font-medium text-slate-900"><%= product.specs.ram %></td></tr>
+                        <% } %>
+                    </table>
+                </div>
+            </div>
+            
+            <button onclick="addToCart('<%= product._id %>', '<%= product.name %>', <%= product.price %>, '<%= product.imageUrl %>')" class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-sm transition-colors">
+                Add to Shopping Cart
+            </button>
+        </div>
+    </div>
+</div>
+<%- include('partials/footer') %>
